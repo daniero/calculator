@@ -1,5 +1,6 @@
 # language: en
 Feature: Basic addition
+  Adding zero, one or more terms toghether.
 
   Scenario: Empty input
     Given a new calculator

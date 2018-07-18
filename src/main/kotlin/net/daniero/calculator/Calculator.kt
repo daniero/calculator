@@ -3,9 +3,9 @@ package net.daniero.calculator
 import net.daniero.calculator.parser.CalculatorLexer
 import net.daniero.calculator.parser.CalculatorParser
 import net.daniero.calculator.parser.CalculatorParserBaseVisitor
+import net.daniero.calculator.syntax.Addition
 import net.daniero.calculator.syntax.Expression
 import net.daniero.calculator.syntax.IntConstant
-import net.daniero.calculator.syntax.PlusExpression
 import org.antlr.v4.runtime.BufferedTokenStream
 import org.antlr.v4.runtime.CharStreams
 
@@ -36,6 +36,6 @@ private class ExpressionVisitor : CalculatorParserBaseVisitor<Expression>() {
         val left = visit(ctx.left)
         val right = visit(ctx.right)
 
-        return PlusExpression(left, right)
+        return Addition(left, right)
     }
 }

@@ -19,7 +19,7 @@ class TestGlue : En {
             this.input = input
         }
 
-        Then("""^the result is (\d+)$""") { expected: Int ->
+        Then("""^the result is (\-?\d+)$""") { expected: Int ->
             this.expectedResult = expected
 
             val result = calculator.evaluate(input)
