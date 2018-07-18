@@ -50,6 +50,8 @@ generateGrammarSource {
     def packageName = 'net.daniero.calculator.parser'
     def pathName = packageNameToPath(packageName)
 
+    arguments += ['-visitor']
+    arguments += ['-no-listener']
     arguments += ['-package', packageName]
     outputDirectory = file("$generatedJavaMain/$pathName")
 }
