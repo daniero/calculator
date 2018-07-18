@@ -2,3 +2,6 @@ build/
 out/
 .idea/
 .gradle/
+
+generated-src/
+*.tokens
