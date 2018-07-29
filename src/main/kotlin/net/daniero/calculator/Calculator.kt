@@ -6,8 +6,10 @@ import net.daniero.calculator.parser.CalculatorParserBaseVisitor
 import net.daniero.calculator.syntax.Addition
 import net.daniero.calculator.syntax.Expression
 import net.daniero.calculator.syntax.IntConstant
+import net.daniero.calculator.syntax.Subtraction
 import org.antlr.v4.runtime.BufferedTokenStream
 import org.antlr.v4.runtime.CharStreams
+import org.antlr.v4.runtime.Token
 
 class Calculator {
 
@@ -29,13 +31,24 @@ private class ExpressionVisitor : CalculatorParserBaseVisitor<Expression>() {
     }
 
     override fun visitIntLiteral(ctx: CalculatorParser.IntLiteralContext): Expression {
-        return IntConstant(ctx.text.toInt())
+        val value = ctx.text
+        return IntConstant(value.toInt())
     }
 
-    override fun visitPlusExpression(ctx: CalculatorParser.PlusExpressionContext): Expression {
+    override fun visitBinaryExpression(ctx: CalculatorParser.BinaryExpressionContext): Expression {
         val left = visit(ctx.left)
         val right = visit(ctx.right)
 
-        return Addition(left, right)
+        val operator = findBinaryOperator(ctx.op)
+
+        return operator(left, right)
+    }
+
+    private fun findBinaryOperator(token: Token): (Expression, Expression) -> Expression {
+        return when (token.type) {
+            CalculatorLexer.PLUS -> ::Addition
+            CalculatorLexer.MINUS -> ::Subtraction
+            else -> throw IllegalArgumentException("Unknown binary operator")
+        }
     }
 }

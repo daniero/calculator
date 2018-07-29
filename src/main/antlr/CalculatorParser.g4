@@ -8,6 +8,6 @@ calculation : expression  #expressionCalculation
 
 term : INT #intLiteral ;
 
-expression : left=expression PLUS right=term #plusExpression
-           | term                            #termExpression
+expression : left=expression op=(PLUS|MINUS) right=term #binaryExpression
+           | term                                       #termExpression
            ;
